@@ -10,9 +10,7 @@ import com.example.videogame.R
 import com.example.videogame.data.model.Game
 import com.example.videogame.databinding.FragmentCompareBinding
 import com.example.videogame.viewmodel.GameViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.Calendar
 
 class CompareFragment : Fragment(R.layout.fragment_compare) {
     private val viewModel: GameViewModel by activityViewModels()
@@ -28,7 +26,6 @@ class CompareFragment : Fragment(R.layout.fragment_compare) {
 
             binding.gameACover.setOnClickListener { viewModel.choose(gameA, gameB) }
             binding.gameBCover.setOnClickListener { viewModel.choose(gameB, gameA) }
-
             binding.skipButton.setOnClickListener { viewModel.skip() }
         }
 
@@ -44,11 +41,12 @@ class CompareFragment : Fragment(R.layout.fragment_compare) {
         val yearView = if (isTop) binding.gameAYear else binding.gameBYear
 
         coverView.load(game.cover?.url?.toFullCoverUrl())
-        nameView.text = game.name
-        genreView.text = game.genres?.joinToString(", ") { it.name } ?: "Unknown Genre"
+        nameView.text = game.name ?: "Unknown"
+        genreView.text = game.genres?.joinToString(", ") { it.name ?: "" } ?: ""
         yearView.text = game.first_release_date?.let {
-            SimpleDateFormat("yyyy", Locale.getDefault()).format(Date(it * 1000))
-        } ?: "Unknown Year"
+            Calendar.getInstance().apply { timeInMillis = it * 1000 }
+                .get(Calendar.YEAR).toString()
+        } ?: ""
     }
 
     private fun String.toFullCoverUrl(): String =
