@@ -18,9 +18,7 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         buildConfigField("String", "IGDB_CLIENT_ID", "\"${localProps["igdb_client_id"]}\"")
         buildConfigField("String", "IGDB_TOKEN", "\"${localProps["igdb_token"]}\"")
     }
@@ -43,6 +41,10 @@ android {
         viewBinding = true
         buildConfig = true
     }
+}
+
+kotlin {
+    jvmToolchain(11)
 }
 
 dependencies {
