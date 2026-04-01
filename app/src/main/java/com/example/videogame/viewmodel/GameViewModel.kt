@@ -16,8 +16,8 @@ class GameViewModel : ViewModel() {
     val progress = MutableLiveData(0)
 
     private val query = """
-        fields name, summary, cover.url, genres.name, rating;
-        where rating > 75 & cover != null & genres != null;
+        fields name, summary, cover.url, genres.name, rating, first_release_date;
+        where rating > 75 & cover != null & genres != null & first_release_date != null;
         sort rating desc;
         limit 50;
     """.trimIndent()
@@ -26,10 +26,14 @@ class GameViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val games = RetrofitClient.instance.getGames(query)
+                android.util.Log.d("GameViewModel", "Loaded ${games.size} games")
+                if (games.isNotEmpty()) {
+                    android.util.Log.d("GameViewModel", "First game: ${games[0]}")
+                }
                 engine = PreferenceEngine(games)
                 showNextPair()
             } catch (e: Exception) {
-                e.printStackTrace()
+                android.util.Log.e("GameViewModel", "Failed to load games", e)
             }
         }
     }
@@ -42,6 +46,10 @@ class GameViewModel : ViewModel() {
         } else {
             showNextPair()
         }
+    }
+
+    fun skip() {
+        showNextPair()
     }
 
     private fun showNextPair() {

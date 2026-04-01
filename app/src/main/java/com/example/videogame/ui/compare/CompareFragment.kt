@@ -7,8 +7,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.videogame.R
+import com.example.videogame.data.model.Game
 import com.example.videogame.databinding.FragmentCompareBinding
 import com.example.videogame.viewmodel.GameViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class CompareFragment : Fragment(R.layout.fragment_compare) {
     private val viewModel: GameViewModel by activityViewModels()
@@ -19,22 +23,32 @@ class CompareFragment : Fragment(R.layout.fragment_compare) {
         binding = FragmentCompareBinding.bind(view)
 
         viewModel.currentPair.observe(viewLifecycleOwner) { (gameA, gameB) ->
-            binding.gameAName.text = gameA.name
-            binding.gameBName.text = gameB.name
-            binding.gameACover.load(gameA.cover?.url?.toFullCoverUrl())
-            binding.gameBCover.load(gameB.cover?.url?.toFullCoverUrl())
+            bindGame(gameA, isTop = true)
+            bindGame(gameB, isTop = false)
 
-            binding.gameAButton.setOnClickListener { viewModel.choose(gameA, gameB) }
-            binding.gameBButton.setOnClickListener { viewModel.choose(gameB, gameA) }
-        }
+            binding.gameACover.setOnClickListener { viewModel.choose(gameA, gameB) }
+            binding.gameBCover.setOnClickListener { viewModel.choose(gameB, gameA) }
 
-        viewModel.progress.observe(viewLifecycleOwner) { round ->
-            binding.progressBar.progress = round
+            binding.skipButton.setOnClickListener { viewModel.skip() }
         }
 
         viewModel.recommendation.observe(viewLifecycleOwner) { game ->
             game?.let { findNavController().navigate(R.id.action_compare_to_result) }
         }
+    }
+
+    private fun bindGame(game: Game, isTop: Boolean) {
+        val coverView = if (isTop) binding.gameACover else binding.gameBCover
+        val nameView = if (isTop) binding.gameAName else binding.gameBName
+        val genreView = if (isTop) binding.gameAGenre else binding.gameBGenre
+        val yearView = if (isTop) binding.gameAYear else binding.gameBYear
+
+        coverView.load(game.cover?.url?.toFullCoverUrl())
+        nameView.text = game.name
+        genreView.text = game.genres?.joinToString(", ") { it.name } ?: "Unknown Genre"
+        yearView.text = game.first_release_date?.let {
+            SimpleDateFormat("yyyy", Locale.getDefault()).format(Date(it * 1000))
+        } ?: "Unknown Year"
     }
 
     private fun String.toFullCoverUrl(): String =

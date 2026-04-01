@@ -6,7 +6,8 @@ data class Game(
     val summary: String?,
     val cover: Cover?,
     val genres: List<Genre>?,
-    val rating: Double?
+    val rating: Double?,
+    val first_release_date: Long?
 )
 
 data class Cover(val id: Int, val url: String?)
