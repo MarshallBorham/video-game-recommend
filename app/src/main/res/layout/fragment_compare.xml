@@ -7,6 +7,7 @@
 
     <!-- Upper Half -->
     <LinearLayout
+        android:id="@+id/gameAContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -61,6 +62,7 @@
 
     <!-- Lower Half -->
     <LinearLayout
+        android:id="@+id/gameBContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

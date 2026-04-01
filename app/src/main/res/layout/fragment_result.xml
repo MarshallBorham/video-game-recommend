@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="#121212"
     android:padding="24dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="We recommend..."
+        android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
     <ImageView
@@ -24,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -33,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
+        android:textColor="#CCCCCC"
         android:textSize="14sp" />
 
     <Button
@@ -41,4 +45,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Start Over" />
+
+    <Button
+        android:id="@+id/historyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="View History"
+        android:backgroundTint="#333333"
+        android:textColor="#FFFFFF" />
+
 </LinearLayout>

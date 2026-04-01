@@ -21,8 +21,7 @@ class CompareFragment : Fragment(R.layout.fragment_compare) {
         binding = FragmentCompareBinding.bind(view)
 
         viewModel.currentPair.observe(viewLifecycleOwner) { (gameA, gameB) ->
-            bindGame(gameA, isTop = true)
-            bindGame(gameB, isTop = false)
+            animateNewPair(gameA, gameB)
 
             binding.gameACover.setOnClickListener { viewModel.choose(gameA, gameB) }
             binding.gameBCover.setOnClickListener { viewModel.choose(gameB, gameA) }
@@ -31,6 +30,28 @@ class CompareFragment : Fragment(R.layout.fragment_compare) {
 
         viewModel.recommendation.observe(viewLifecycleOwner) { game ->
             game?.let { findNavController().navigate(R.id.action_compare_to_result) }
+        }
+    }
+
+    private fun animateNewPair(gameA: Game, gameB: Game) {
+        val duration = 250L
+        val offset = 80f
+
+        listOf(binding.gameAContainer, binding.gameBContainer).forEach { container ->
+            container.animate()
+                .alpha(0f)
+                .translationX(-offset)
+                .setDuration(duration)
+                .withEndAction {
+                    bindGame(gameA, isTop = true)
+                    bindGame(gameB, isTop = false)
+                    container.translationX = offset
+                    container.animate()
+                        .alpha(1f)
+                        .translationX(0f)
+                        .setDuration(duration)
+                        .start()
+                }.start()
         }
     }
 

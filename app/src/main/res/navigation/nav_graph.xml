@@ -2,7 +2,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/compareFragment">
+    app:startDestination="@id/genreFilterFragment">
+
+    <fragment
+        android:id="@+id/genreFilterFragment"
+        android:name="com.example.videogame.ui.genre.GenreFilterFragment"
+        android:label="Genre Filter">
+        <action
+            android:id="@+id/action_genre_to_compare"
+            app:destination="@id/compareFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/compareFragment"
@@ -18,7 +27,18 @@
         android:name="com.example.videogame.ui.result.ResultFragment"
         android:label="Result">
         <action
-            android:id="@+id/action_result_to_compare"
-            app:destination="@id/compareFragment" />
+            android:id="@+id/action_result_to_genre"
+            app:destination="@id/genreFilterFragment"
+            app:popUpTo="@id/genreFilterFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_result_to_history"
+            app:destination="@id/historyFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.videogame.ui.history.HistoryFragment"
+        android:label="History" />
+
 </navigation>

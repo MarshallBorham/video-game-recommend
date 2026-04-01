@@ -25,8 +25,11 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         }
 
         binding.restartButton.setOnClickListener {
-            viewModel.loadGames()
-            findNavController().navigate(R.id.action_result_to_compare)
+            findNavController().navigate(R.id.action_result_to_genre)
+        }
+
+        binding.historyButton.setOnClickListener {
+            findNavController().navigate(R.id.action_result_to_history)
         }
     }
 }
