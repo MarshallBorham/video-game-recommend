@@ -1,5 +1,7 @@
 package com.example.videogame.data.engine
 
+import com.example.videogame.data.model.Game
+
 class PreferenceEngine(private val gamePool: List<Game>) {
     private val scores = mutableMapOf<Int, Double>()
     private val usedPairs = mutableSetOf<Pair<Int, Int>>()

@@ -1,5 +1,10 @@
 package com.example.videogame.data.network
 
+import com.example.videogame.BuildConfig
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 object RetrofitClient {
     private const val BASE_URL = "https://api.igdb.com/v4/"
 

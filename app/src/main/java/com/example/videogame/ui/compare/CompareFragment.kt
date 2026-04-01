@@ -1,5 +1,15 @@
 package com.example.videogame.ui.compare
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import coil.load
+import com.example.videogame.R
+import com.example.videogame.databinding.FragmentCompareBinding
+import com.example.videogame.viewmodel.GameViewModel
+
 class CompareFragment : Fragment(R.layout.fragment_compare) {
     private val viewModel: GameViewModel by activityViewModels()
     private lateinit var binding: FragmentCompareBinding

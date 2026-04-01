@@ -1,5 +1,13 @@
 package com.example.videogame.viewmodel
 
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.videogame.data.engine.PreferenceEngine
+import com.example.videogame.data.model.Game
+import com.example.videogame.data.network.RetrofitClient
+import kotlinx.coroutines.launch
+
 class GameViewModel : ViewModel() {
     private lateinit var engine: PreferenceEngine
 
