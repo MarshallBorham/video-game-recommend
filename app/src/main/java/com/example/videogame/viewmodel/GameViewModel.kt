@@ -24,9 +24,13 @@ class GameViewModel : ViewModel() {
 
     fun loadGames() {
         viewModelScope.launch {
-            val games = RetrofitClient.instance.getGames(query)
-            engine = PreferenceEngine(games)
-            showNextPair()
+            try {
+                val games = RetrofitClient.instance.getGames(query)
+                engine = PreferenceEngine(games)
+                showNextPair()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
